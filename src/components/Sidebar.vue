@@ -66,11 +66,11 @@ import {
 } from "@mdi/js";
 
 const routes = [
-  { url: "/about", path: mdiTelevision },
+  { url: "/", path: mdiTelevision },
   { url: "/clock", path: mdiClockOutline },
   { url: "/bag-check", path: mdiBagChecked },
   { url: "/clock-plus", path: mdiClockPlusOutline },
-  { url: "/", path: mdiAccount },
+  { url: "/employee", path: mdiAccount },
   { url: "/repeat", path: mdiRepeatVariant },
   { url: "/bell", path: mdiBellOutline },
   { url: "/credit-card", path: mdiCreditCardOutline },

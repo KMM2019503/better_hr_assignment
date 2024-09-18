@@ -1,21 +1,29 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Employee from "@/views/Employee.vue";
-import AboutView from "@/views/AboutView.vue";
+import Home from "@/views/Home.vue";
 import NotFound from "@/components/NotFound.vue";
+import Directory from "@/views/employee/Directory.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "employee",
-      component: Employee,
+      name: "home",
+      component: Home,
     },
     {
-      path: "/about",
-      name: "about",
-      component: AboutView,
+      path: "/employee",
+      name: "employee",
+      component: Employee,
+      children: [
+        {
+          path: "directory",
+          component: Directory,
+        },
+      ],
     },
+
     {
       path: "/:pathMatch(.*)*", // Catch all routes that don't match
       name: "NotFound",
