@@ -5,9 +5,9 @@
         <svg-icon
           type="mdi"
           :path="mdiArrowLeft"
-          class="text-[18px] text-green-300 hover:text-green-400 transition cursor-pointer"
+          class="text-[18px] text-[#1ED292] hover:text-green-400 transition cursor-pointer"
         ></svg-icon>
-        <h1 class="text-[16px]">Employee Directory</h1>
+        <h1 class="text-[16px] text-[#4A4A4A]">Employee Directory</h1>
         <div
           class="border-2 rounded-md px-2 py-1 flex items-center justify-center gap-2"
         >
@@ -15,25 +15,25 @@
             <svg-icon
               type="mdi"
               :path="mdiMagnify"
-              class="text-[18px] text-green-300 hover:text-green-400 transition cursor-pointer"
+              class="text-[18px] text-[#4A4A4A] hover:text-[#1ED292] transition cursor-pointer"
             ></svg-icon>
           </label>
           <input
             v-model="searchTerm"
             type="text"
-            class="text-gray-900 rounded-lg block w-full outline-none text-lg"
+            class="text-[#4A4A4A] rounded-lg block w-full outline-none text-lg"
             placeholder="Search..."
           />
         </div>
         <button
-          class="group cursor-pointer p-2 border rounded-lg"
+          class="group cursor-pointer rounded-lg"
           @click="deleteSelectedEmployee"
         >
           <svg-icon
             type="mdi"
-            size="18"
+            size="24"
             :path="mdiTrashCan"
-            class="text-gray-700 disabled:text-gray-400 group-hover:text-green-400 transition"
+            class="text-[#4A4A4A] hover:text-[#1ED292] transition"
           ></svg-icon>
         </button>
       </div>
@@ -44,7 +44,7 @@
           <svg-icon
             type="mdi"
             :path="mdiDotsVertical"
-            class="text-[18px] text-green-300 hover:text-green-400 transition cursor-pointer"
+            class="text-[18px] text-[#4A4A4A] hover:text-[#1ED292] transition cursor-pointer"
           ></svg-icon>
         </button>
       </div>
@@ -53,7 +53,7 @@
       <div class="card px-4 py-3">
         <DataTable
           class="mx-2 overflow-x-visible"
-          v-model:selection="selectedProduct"
+          v-model:selection="selectedEmployee"
           dataKey="employeeCode"
           :value="paginatedData"
           :pt="{ headerrow: { class: 'bg-white' } }"
@@ -141,49 +141,52 @@
       </div>
     </div>
 
+    <!-- Pagination -->
     <div class="w-full flex justify-end items-center mr-5 gap-1">
-      <p class="text-sm p-2 border rounded-lg text-gray-500">
+      <p class="text-sm p-2 border rounded-md text-gray-500 mr-5">
         {{ currentPage }}/{{ totalPages }} page
       </p>
 
-      <button
-        class="cursor-pointer p-2 border rounded-lg"
-        :disabled="currentPage <= 1"
-        @click="previousPage"
-      >
-        <svg-icon
-          type="mdi"
-          size="18"
-          :path="mdiChevronLeft"
-          class="text-green-300 hover:text-green-400 transition"
-        ></svg-icon>
-      </button>
+      <div class="flex justify-center items-center">
+        <button
+          class="cursor-pointer p-2 border rounded-tl-md rounded-bl-md disabled:cursor-not-allowed flex items-center justify-center h-10 w-10"
+          :disabled="currentPage <= 1"
+          @click="previousPage"
+        >
+          <svg-icon
+            type="mdi"
+            size="18"
+            :path="mdiChevronLeft"
+            class="text-[#1ED292] hover:text-green-400 transition"
+          ></svg-icon>
+        </button>
 
-      <button
-        v-for="page in totalPages"
-        :key="page"
-        class="cursor-pointer px-3 py-2 border rounded-lg text-[18px]"
-        :class="{
-          'bg-green-300 text-white': currentPage === page,
-          'text-gray-300 hover:text-gray-500': currentPage !== page,
-        }"
-        @click="changePage(page)"
-      >
-        {{ page }}
-      </button>
+        <button
+          v-for="page in totalPages"
+          :key="page"
+          class="cursor-pointer px-3 py-2 border text-[13px] flex items-center justify-center h-10 w-10"
+          :class="{
+            'bg-[#1ED292] text-white': currentPage === page,
+            'text-gray-300 hover:text-gray-500': currentPage !== page,
+          }"
+          @click="changePage(page)"
+        >
+          {{ page }}
+        </button>
 
-      <button
-        class="cursor-pointer p-2 border rounded-lg"
-        :disabled="currentPage >= totalPages"
-        @click="nextPage"
-      >
-        <svg-icon
-          type="mdi"
-          size="18"
-          :path="mdiChevronRight"
-          class="text-green-300 hover:text-green-400 transition"
-        ></svg-icon>
-      </button>
+        <button
+          class="cursor-pointer p-2 border rounded-tr-md rounded-br-md disabled:cursor-not-allowed flex items-center justify-center h-10 w-10"
+          :disabled="currentPage >= totalPages"
+          @click="nextPage"
+        >
+          <svg-icon
+            type="mdi"
+            size="18"
+            :path="mdiChevronRight"
+            class="text-[#1ED292] hover:text-green-400 transition"
+          ></svg-icon>
+        </button>
+      </div>
 
       <div class="flex justify-between items-center ml-5">
         <label for="" class="text-sm font-semibold text-gray-500">Go To</label>
@@ -192,7 +195,7 @@
           type="number"
           min="1"
           :max="totalPages"
-          class="w-10 border rounded-lg px-2 py-1 ml-2 outline-none text-center"
+          class="w-10 border rounded-md px-2 py-1 ml-2 outline-none text-center"
           @change="goToPageHandler"
         />
       </div>
@@ -217,9 +220,12 @@ import Button from "@/components/ui/Button.vue";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { employees, departments } from "@/constant/employees";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 const data = ref([...employees]);
-const selectedProduct = ref();
+const selectedEmployee = ref();
 const searchTerm = ref("");
 const currentPage = ref(1);
 const rowsPerPage = 11;
@@ -262,6 +268,7 @@ const closeSelect = () => {
 const updateDepartment = (employee) => {
   if (departments.some((dept) => dept.department === employee.department)) {
     currentlyEditing.value = null;
+    toast(`Successfully updated`);
   } else {
     alert("Invalid department");
   }
@@ -312,11 +319,14 @@ const goToPageHandler = () => {
 
 // Handle delete function
 const deleteSelectedEmployee = () => {
-  if (selectedProduct.value && selectedProduct.value.length) {
+  if (selectedEmployee.value && selectedEmployee.value.length) {
     data.value = data.value.filter(
-      (employee) => !selectedProduct.value.includes(employee)
+      (employee) => !selectedEmployee.value.includes(employee)
     );
-    selectedProduct.value = [];
+    toast(`Successfully deleted`);
+    selectedEmployee.value = [];
+  } else {
+    toast(`Your need to select at least one employee`);
   }
 };
 </script>
