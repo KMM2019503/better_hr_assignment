@@ -4,7 +4,7 @@
     <ChildSidebar header="Employees" :routes="routes" />
     <!-- Main Content -->
     <div
-      class="bg-[#FFFFFF] shadow-2xl overflow-x-scroll rounded-tl-3xl rounded-bl-3xl p-2"
+      class="bg-[#FFFFFF] shadow-2xl overflow-x-auto rounded-tl-3xl rounded-bl-3xl p-2"
     >
       <RouterView />
     </div>

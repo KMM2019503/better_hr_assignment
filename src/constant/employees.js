@@ -1,4 +1,4 @@
-const employees = [
+export const employees = [
   {
     employee: "Ye Min Htun",
     location: "Yangon Office",
@@ -60,21 +60,6 @@ const employees = [
     terminateDate: "-",
   },
   {
-    employee: "Su Su Lin",
-    location: "Bago Office",
-    email: "susulin@gmail.com",
-    phone: "+857 5555 5555",
-    department: "Operations",
-    employeeCode: "004-347",
-    customTags: "Part-time",
-    position: "Operations Manager",
-    NRC: "12/DGM(N)/011010",
-    manager: "Hla Hla",
-    managerPosition: "COO",
-    joinnedDate: "15.8.2020",
-    terminateDate: "-",
-  },
-  {
     employee: "Thiri Shwe Yee",
     location: "Yangon Office",
     email: "thirishweyee@gmail.com",
@@ -132,21 +117,6 @@ const employees = [
     manager: "Hla Hla",
     managerPosition: "COO",
     joinnedDate: "17.7.2021",
-    terminateDate: "-",
-  },
-  {
-    employee: "Myat Min Oo",
-    location: "Yangon Office",
-    email: "myatminoo@gmail.com",
-    phone: "+857 6666 6666",
-    department: "IT",
-    employeeCode: "004-346",
-    customTags: "Full-time",
-    position: "Software Engineer",
-    NRC: "12/DGM(N)/010009",
-    manager: "Aung Aung",
-    managerPosition: "CTO",
-    joinnedDate: "10.1.2022",
     terminateDate: "-",
   },
   {
@@ -256,4 +226,15 @@ const employees = [
   },
 ];
 
-export default employees;
+export const departments = [
+  { department: "IT", id: "1" },
+  { department: "Marketing", id: "2" },
+  { department: "Finance", id: "3" },
+  { department: "HR", id: "4" },
+  { department: "Operations", id: "5" },
+  { department: "Legal", id: "6" },
+  { department: "Sales", id: "7" },
+  { department: "Customer Support", id: "8" },
+  { department: "R&D", id: "9" },
+  { department: "Procurement", id: "10" },
+];

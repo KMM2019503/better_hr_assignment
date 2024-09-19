@@ -20,6 +20,8 @@
           :url="icon.url"
           :iconPath="icon.path"
         />
+
+        <IconButton :iconPath="mdiDotsHorizontal" />
       </div>
     </div>
 
@@ -63,10 +65,11 @@ import {
   mdiMessageProcessingOutline,
   mdiFileDownloadOutline,
   mdiFileCheckOutline,
+  mdiDotsHorizontal,
 } from "@mdi/js";
 
 const routes = [
-  { url: "/", path: mdiTelevision },
+  { url: "/tv", path: mdiTelevision },
   { url: "/clock", path: mdiClockOutline },
   { url: "/bag-check", path: mdiBagChecked },
   { url: "/clock-plus", path: mdiClockPlusOutline },
