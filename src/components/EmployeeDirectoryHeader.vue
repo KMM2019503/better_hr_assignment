@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between items-center">
+  <div class="flex justify-between items-center pl-5 mt-5">
     <div class="flex justify-start items-center gap-3 w-full">
       <svg-icon
         type="mdi"
@@ -18,7 +18,7 @@
           ></svg-icon>
         </label>
         <input
-          v-model="searchTerm"
+          v-model="localSearchTerm"
           type="text"
           class="text-[#4A4A4A] rounded-lg block w-full outline-none text-lg"
           placeholder="Search..."
@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, defineEmits, watch, ref } from "vue";
 import SvgIcon from "@jamescoyle/vue-icon";
 import Button from "@/components/ui/Button.vue";
 
@@ -62,5 +62,13 @@ const props = defineProps({
   mdiMagnify: String,
   mdiTrashCan: String,
   mdiDotsVertical: String,
+});
+
+const emit = defineEmits(["update:searchTerm"]);
+
+const localSearchTerm = ref(props.searchTerm);
+
+watch(localSearchTerm, (newValue) => {
+  emit("update:searchTerm", newValue);
 });
 </script>
