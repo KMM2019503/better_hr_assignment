@@ -3,6 +3,7 @@ import Employee from "@/views/Employee.vue";
 import Home from "@/views/Home.vue";
 import NotFound from "@/components/NotFound.vue";
 import Directory from "@/views/employee/Directory.vue";
+import UpadateRequest from "@/views/employee/UpadateRequest.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,10 @@ const router = createRouter({
         {
           path: "directory",
           component: Directory,
+        },
+        {
+          path: "update-request",
+          component: UpadateRequest,
         },
       ],
     },

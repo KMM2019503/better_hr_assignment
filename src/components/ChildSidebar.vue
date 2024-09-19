@@ -9,7 +9,7 @@
       </h3>
     </div>
     <!-- Routes -->
-    <div class="py-6 flex flex-col gap-4">
+    <div class="py-6 flex flex-col gap-6">
       <Route
         v-for="(route, index) in routes"
         :key="index"

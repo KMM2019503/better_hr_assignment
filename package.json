@@ -12,6 +12,8 @@
     "@jamescoyle/vue-icon": "^0.1.2",
     "@mdi/js": "^7.4.47",
     "pinia": "^2.1.7",
+    "primevue": "^4.0.7",
+    "tailwindcss-primeui": "^0.3.4",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },
