@@ -19,13 +19,13 @@ const router = createRouter({
       children: [
         {
           path: "directory",
+          name: "directory",
           component: Directory,
         },
       ],
     },
-
     {
-      path: "/:pathMatch(.*)*", // Catch all routes that don't match
+      path: "/:pathMatch(.*)*",
       name: "NotFound",
       component: NotFound,
     },
