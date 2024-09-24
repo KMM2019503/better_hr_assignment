@@ -22,6 +22,7 @@
           type="text"
           class="text-[#4A4A4A] rounded-lg block w-full outline-none text-lg"
           placeholder="Search..."
+          v-on:focus="notifyInputField"
         />
       </div>
       <button
@@ -55,6 +56,10 @@ import { defineProps, defineEmits, watch, ref } from "vue";
 import SvgIcon from "@jamescoyle/vue-icon";
 import Button from "@/components/ui/Button.vue";
 
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
+
 const props = defineProps({
   searchTerm: String,
   deleteSelectedEmployee: Function,
@@ -71,4 +76,8 @@ const localSearchTerm = ref(props.searchTerm);
 watch(localSearchTerm, (newValue) => {
   emit("update:searchTerm", newValue);
 });
+
+const notifyInputField = () => {
+  toast("You can search name, email, department, location");
+};
 </script>

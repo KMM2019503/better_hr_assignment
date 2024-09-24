@@ -6,7 +6,7 @@
 
     <div class="flex justify-center items-center">
       <button
-        class="cursor-pointer p-2 border rounded-tl-md rounded-bl-md disabled:cursor-not-allowed flex items-center justify-center h-10 w-10"
+        class="cursor-pointer group p-2 border rounded-tl-md rounded-bl-md disabled:cursor-not-allowed flex items-center justify-center h-10 w-10"
         :disabled="currentPage <= 1"
         @click="previousPage"
       >
@@ -14,7 +14,7 @@
           type="mdi"
           size="18"
           :path="mdiChevronLeft"
-          class="text-[#1ED292] hover:text-green-400 transition"
+          class="text-[#1ED292] group-hover:text-green-400 transition group-disabled:text-gray-500"
         ></svg-icon>
       </button>
 
@@ -32,7 +32,7 @@
       </button>
 
       <button
-        class="cursor-pointer p-2 border rounded-tr-md rounded-br-md disabled:cursor-not-allowed flex items-center justify-center h-10 w-10"
+        class="cursor-pointer group p-2 border rounded-tr-md rounded-br-md disabled:cursor-not-allowed flex items-center justify-center h-10 w-10"
         :disabled="currentPage >= totalPages"
         @click="nextPage"
       >
@@ -40,7 +40,7 @@
           type="mdi"
           size="18"
           :path="mdiChevronRight"
-          class="text-[#1ED292] hover:text-green-400 transition"
+          class="text-[#1ED292] group-hover:text-green-400 transition group-disabled:text-gray-500"
         ></svg-icon>
       </button>
     </div>
@@ -53,7 +53,6 @@
         min="1"
         :max="totalPages"
         class="w-10 border rounded-md px-2 py-1 ml-2 outline-none text-center"
-        @change="goToPageHandler"
       />
     </div>
   </div>
@@ -70,7 +69,6 @@ const props = defineProps({
   previousPage: Function,
   nextPage: Function,
   changePage: Function,
-  goToPageHandler: Function,
   mdiChevronLeft: String,
   mdiChevronRight: String,
 });
@@ -82,13 +80,6 @@ const localGoToPage = ref(props.goToPage);
 watch(localGoToPage, (newValue) => {
   emit("update:goToPage", newValue);
 });
-
-watch(
-  () => props.goToPage,
-  (newValue) => {
-    localGoToPage.value = newValue;
-  }
-);
 </script>
 
 <style scoped>

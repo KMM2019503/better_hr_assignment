@@ -29,7 +29,6 @@
       :previousPage="previousPage"
       :nextPage="nextPage"
       :changePage="changePage"
-      :goToPageHandler="goToPageHandler"
       :mdiChevronLeft="mdiChevronLeft"
       :mdiChevronRight="mdiChevronRight"
       @update:goToPage="updateGoToPage"
@@ -38,7 +37,12 @@
 </template>
 
 <script setup>
+// constants data
+import { employees, departments } from "@/constant/employees";
+
 import { ref, computed } from "vue";
+
+// Icons
 import {
   mdiArrowLeft,
   mdiDotsVertical,
@@ -49,8 +53,10 @@ import {
   mdiPencil,
   mdiClose,
 } from "@mdi/js";
-import { employees, departments } from "@/constant/employees";
+
 import { useToast } from "vue-toastification";
+
+// components
 import EmployeePagination from "@/components/EmployeePagination.vue";
 import EmployeeDataTable from "@/components/EmployeeDataTable.vue";
 import EmployeeDirectoryHeader from "@/components/EmployeeDirectoryHeader.vue";
@@ -104,6 +110,7 @@ const filteredData = computed(() => {
   });
 });
 
+// pagination logic
 const totalPages = computed(() => {
   return Math.ceil(filteredData.value.length / rowsPerPage);
 });
@@ -128,28 +135,27 @@ const changePage = (page) => {
   }
 };
 
-const goToPageHandler = () => {
+const updateGoToPage = (newPage) => {
   if (goToPage.value >= 1 && goToPage.value <= totalPages.value) {
-    currentPage.value = goToPage.value;
+    currentPage.value = newPage;
   }
 };
 
-const updateGoToPage = (newPage) => {
-  console.log("updateGoToPage called with:", newPage);
-  currentPage.value = newPage;
+// selected employee logic
+
+const startEditing = (employee) => {
+  currentlyEditing.value = employee.employeeCode;
 };
 
 const updateSelectedEmployee = (newSelection) => {
   selectedEmployee.value = newSelection;
 };
 
-const startEditing = (employee) => {
-  currentlyEditing.value = employee.employeeCode;
-};
-
 const closeSelect = () => {
   currentlyEditing.value = null;
 };
+
+// update department logic
 
 const updateDepartment = (employee) => {
   const index = data.value.findIndex(
@@ -159,8 +165,12 @@ const updateDepartment = (employee) => {
     data.value[index].department = employee.department;
     toast.success(`Department updated to ${employee.department}`);
     closeSelect();
+  } else {
+    toast.error("Something went wrong");
   }
 };
+
+// delete selected employee logic
 
 const deleteSelectedEmployee = () => {
   if (selectedEmployee.value && selectedEmployee.value.length) {
@@ -170,7 +180,7 @@ const deleteSelectedEmployee = () => {
     toast(`Successfully deleted`);
     selectedEmployee.value = [];
   } else {
-    toast(`Your need to select at least one employee`);
+    toast(`Your need to select at least one employee for delete`);
   }
 };
 </script>
